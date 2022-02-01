@@ -1,0 +1,23 @@
+{
+  "name": "corentindelmee_5_01222021_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CorentinDelmee/CorentinDelmee_5_01222021_Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CorentinDelmee/CorentinDelmee_5_01222021_Backend/issues"
+  },
+  "homepage": "https://github.com/CorentinDelmee/CorentinDelmee_5_01222021_Backend#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.1.9"
+  }
+}
