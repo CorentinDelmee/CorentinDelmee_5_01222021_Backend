@@ -14,6 +14,11 @@ mongoose.connect('mongodb+srv://DefaultUser:MS64dLr6WqetV2a7@cluster0.bdfdk.mong
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+
+// Appel du router user
+
+const userRoutes = require('./routes/user');
+
 // Initialisation de l'app
 
 const app = express();
@@ -28,8 +33,9 @@ app.use((req, res, next) => {
     next();
   });
 
-// Utilisation des routes
+// Utilisation de app.use des routes user
 
+app.use('/api/auth', userRoutes);
 
 // Export de l'app pour server.js
 
