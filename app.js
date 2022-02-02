@@ -2,13 +2,17 @@
 
 const express = require('express');
 
+// Appel path du serveur
+
+const path = require('path');
+
 // Appel du module mongoose
 
 const mongoose = require("mongoose");
 
 // Connexion mongoose Database
 
-mongoose.connect('mongodb+srv://DefaultUser:MS64dLr6WqetV2a7@cluster0.bdfdk.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://DefaultUser:Nlbx2mVPJwBeJs4I@cluster0.bdfdk.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -18,6 +22,10 @@ mongoose.connect('mongodb+srv://DefaultUser:MS64dLr6WqetV2a7@cluster0.bdfdk.mong
 // Appel du router user
 
 const userRoutes = require('./routes/user');
+
+// Appel du router stuff
+
+const stuffRoutes = require("./routes/stuff");
 
 // Initialisation de l'app
 
@@ -33,9 +41,18 @@ app.use((req, res, next) => {
     next();
   });
 
+
+// Middleware qui répond au requête (/images);
+
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 // Utilisation de app.use des routes user
 
 app.use('/api/auth', userRoutes);
+
+// Utilisation app.use des routes stuff
+
+app.use("/api/sauces", stuffRoutes);
 
 // Export de l'app pour server.js
 
