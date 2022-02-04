@@ -40,7 +40,7 @@ exports.getOneThing = (req, res, next) => {
 exports.modifyThing = (req, res, next) => {
   const thingObject = req.file ?
     {
-      ...req.body,
+      ...JSON.parse(req.body.sauce),
       image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
 
@@ -55,11 +55,6 @@ exports.deleteThing = (req, res, next) => {
       if (!thing) {
         res.status(404).json({
           error: new Error('No such Thing!')
-        });
-      }
-      if (thing.userId !== req.auth.userId) {
-        res.status(403).json({
-          error: new Error('Unauthorized request!')
         });
       }
       const filename = thing.imageUrl.split('/images/')[1];
@@ -85,3 +80,44 @@ exports.getAllStuff = (req, res, next) => {
     }
   );
 };
+
+exports.likeDislikeSauce = (req, res, next) => {
+  let like = req.body.like
+  let userId = req.body.userId
+  let sauceId = req.params.id
+  
+  switch (like) {
+    case 1 :
+        Thing.updateOne({ _id: sauceId }, { $push: { usersLiked: userId }, $inc: { likes: +1 }})
+          .then(() => res.status(200).json({ message: `J'aime` }))
+          .catch((error) => res.status(400).json({ error }))
+            
+      break;
+
+    case 0 :
+        Thing.findOne({ _id: sauceId })
+           .then((sauce) => {
+            if (sauce.usersLiked.includes(userId)) { 
+              Thing.updateOne({ _id: sauceId }, { $pull: { usersLiked: userId }, $inc: { likes: -1 }})
+                .then(() => res.status(200).json({ message: `Neutre` }))
+                .catch((error) => res.status(400).json({ error }))
+            }
+            if (sauce.usersDisliked.includes(userId)) { 
+              Thing.updateOne({ _id: sauceId }, { $pull: { usersDisliked: userId }, $inc: { dislikes: -1 }})
+                .then(() => res.status(200).json({ message: `Neutre` }))
+                .catch((error) => res.status(400).json({ error }))
+            }
+          })
+          .catch((error) => res.status(404).json({ error }))
+      break;
+
+    case -1 :
+        Thing.updateOne({ _id: sauceId }, { $push: { usersDisliked: userId }, $inc: { dislikes: +1 }})
+          .then(() => { res.status(200).json({ message: `Je n'aime pas` }) })
+          .catch((error) => res.status(400).json({ error }))
+      break;
+      
+      default:
+        console.log(error);
+  }
+}
