@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 // Création d'un schema d'objet
 
-const thingsSchema = mongoose.Schema({
+const saucesSchema = mongoose.Schema({
     userId: { type: String },
     name: { type: String },
     manufacturer: { type: String },
@@ -21,4 +21,4 @@ const thingsSchema = mongoose.Schema({
 
 // Export du schema d'objet Things pour app.js
 
-module.exports = mongoose.model("Thing", thingsSchema);
+module.exports = mongoose.model("Thing", saucesSchema);
