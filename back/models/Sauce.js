@@ -19,7 +19,7 @@ const saucesSchema = mongoose.Schema({
             validator: function(value) {
                 return /^[^ !"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+$/.test(value);
             },
-            message: "message d'erreur"
+            message: "Veuillez n'utilisez que des lettres et des chiffres, svp"
         }
     },
     manufacturer: { 
@@ -31,6 +31,7 @@ const saucesSchema = mongoose.Schema({
             validator: function(value) {
                 return /^[^ !"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+$/.test(value);
             },
+            message: "Veuillez n'utilisez que des lettres et des chiffres, svp"
         }
     },
     description: { 
@@ -41,6 +42,7 @@ const saucesSchema = mongoose.Schema({
             validator: function(value) {
                 return /^[^ !"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+$/.test(value);
             },
+            message: "Veuillez n'utilisez que des lettres et des chiffres, svp"
         }
     },
     mainPepper: { 
@@ -51,6 +53,7 @@ const saucesSchema = mongoose.Schema({
             validator: function(value) {
                 return /^[^ !"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+$/.test(value);
             },
+            message: "Veuillez n'utilisez que des lettres et des chiffres, svp"
         }
     },
     imageUrl: { type: String, required: true },
